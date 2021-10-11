@@ -21,11 +21,13 @@ func main() {
 	r.GET("/users", controllers.FindUsers)
 	r.POST("/users", controllers.CreateUser)
 	r.GET("/users/:id", controllers.FindUser)
+	r.PUT("/users/:id", controllers.UpdateUser)
 	r.DELETE("users/:id", controllers.DeleteUser)
 
 	r.GET("/posts", controllers.FindPosts)
 	r.POST("/posts", controllers.CreatePost)
 	r.GET("/posts/:id", controllers.FindPost)
+	r.PUT("/posts/:id", controllers.UpdatePost)
 	r.DELETE("/posts/:id", controllers.DeletePost)
 
 	r.Run()

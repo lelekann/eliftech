@@ -10,5 +10,6 @@ type Post struct {
 }
 
 type CreatePostInput struct {
-	Content string `json:"content" binding:"required"`
+	CreatedBy uint   `json:"user_id" binding:"required"`
+	Content   string `json:"content" binding:"required"`
 }
