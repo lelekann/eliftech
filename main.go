@@ -3,7 +3,6 @@ package main
 import (
 	"eliftech_1/controllers"
 	"eliftech_1/models"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,10 +12,6 @@ func main() {
 	r := gin.Default()
 
 	models.ConnectDataBase()
-
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"data": "Hello word"})
-	})
 
 	r.GET("/users", controllers.FindUsers)
 	r.POST("/users", controllers.CreateUser)

@@ -17,20 +17,6 @@ func FindPosts(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": posts})
 }
 
-//GET posts/:user_id
-//Get all posts of single user
-
-// func FindPostsOfUser(c *gin.Context) {
-// 	var posts []models.Post
-
-// 	if err := models.DB.Where("CreatetBy = ?", "user_id").Find(&posts).Error; err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": "User have not posts"})
-// 		return
-// 	}
-
-// 	c.JSON(http.StatusOK, gin.H{"data": posts})
-// }
-
 //POST posts/
 //Create new post
 

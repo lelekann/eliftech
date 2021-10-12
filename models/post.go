@@ -6,9 +6,9 @@ import (
 
 type Post struct {
 	gorm.Model
-	PostId    uint   `json:"postId" gorm:"autoIncrement"`
 	CreatedBY uint   `json:"user_id"`
 	Content   string `json:"content"`
+	User      User   `json:"ID" gorm:"foreignKey:CreatedBy"`
 }
 
 type CreatePostInput struct {
