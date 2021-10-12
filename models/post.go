@@ -1,12 +1,14 @@
 package models
 
-import "time"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 type Post struct {
-	ID        uint   `json:"id" gorm:"primary_key"`
+	gorm.Model
+	PostId    uint   `json:"postId" gorm:"autoIncrement"`
 	CreatedBY uint   `json:"user_id"`
 	Content   string `json:"content"`
-	CreatedAt time.Time
 }
 
 type CreatePostInput struct {
