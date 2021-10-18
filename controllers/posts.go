@@ -12,7 +12,10 @@ import (
 
 func FindPosts(c *gin.Context) {
 	var posts []models.Post
-	models.DB.Find(&posts)
+
+	if err := models.DB.Find(&posts).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
 
 	c.JSON(http.StatusOK, gin.H{"data": posts})
 }
