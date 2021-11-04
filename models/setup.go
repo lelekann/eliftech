@@ -1,21 +1,39 @@
 package models
 
 import (
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"fmt"
+	"os"
+
+	"github.com/joho/godotenv"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
+func ConnectDataBase() (*gorm.DB, error) {
+	var db *gorm.DB
+	godotenv.Load()
 
-func ConnectDataBase() {
-	database, err := gorm.Open("sqlite3", "test.db")
+	dbUser, isUser := os.LookupEnv("DB_USER")
+	dbPass, isPass := os.LookupEnv("DB_PASSWORD")
+	dbHost, isHost := os.LookupEnv("DB_HOST")
 
-	if err != nil {
-		panic("Failed to connect database!")
+	if !isUser || !isPass || !isHost {
+		fmt.Println("Cant read .env file")
 	}
 
-	database.AutoMigrate(&User{})
-	database.AutoMigrate(&Post{})
+	dsn := fmt.Sprintf(`host=%s user=%s password=%s dbname=postgres sslmode=disable`, dbHost, dbUser, dbPass)
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
-	DB = database
+	if err != nil {
+		panic("Failed to connect database")
+	}
+
+	err = db.AutoMigrate(&User{}, &Post{})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return db, nil
+
 }
